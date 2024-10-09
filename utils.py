@@ -53,6 +53,12 @@ class temp(object):
     SHORT = {}
     SETTINGS = {}
     IMDB_CAP = {}
+    SEND_ALL_TEMP = {}
+    KEYWORD = {}
+    SAFARIDEV = {}
+    SHORT = {}
+    GETALL = {}
+    SPELL_CHECK = {}
 
 async def is_subscribed(bot, query):
     try:
