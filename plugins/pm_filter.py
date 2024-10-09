@@ -1686,7 +1686,40 @@ async def delSticker(st):
         await st.delete()
     except:
         pass
-
+async def auto_filter(client, msg, spoll=False):
+    thinkStc = ''
+    thinkStc = await msg.reply_sticker(sticker=random.choice(STICKERS_IDS))
+    if not spoll:
+        message = msg
+        settings = await get_settings(message.chat.id)
+        search = message.text
+        files, offset, total_results = await get_search_results(search)
+        if not files:
+            if settings["spell_check"]:
+                await delSticker(thinkStc)
+                ai_sts = await msg.reply_text('<b>Ai is Cheking For Your Spelling. Please Wait.</b>')
+                is_misspelled = await ai_spell_check(search)
+                if is_misspelled:
+                    await ai_sts.edit(f'<b>Ai Suggested <code>{is_misspelled}</code>\nSo Im Searching for <code>{is_misspelled}</code></b>')
+                    await asyncio.sleep(2)
+                    msg.text = is_misspelled
+                    await ai_sts.delete()
+                    return await auto_filter(client, msg)
+                await delSticker(thinkStc)
+                await ai_sts.delete()
+                await advantage_spell_chok(msg)
+            return
+    else:
+        settings = await get_settings(msg.message.chat.id)
+        message = msg.message.reply_to_message  # msg will be callback query
+        search, files, offset, total_results = spoll
+    if spoll:
+        await msg.message.delete()
+    req = message.from_user.id if message.from_user else 0
+    key = f"{message.chat.id}-{message.id}"
+    temp.FILES[key] = files
+    BUTTONS[key] = search
+    files_link = ""
     
 async def auto_filter(client, msg, spoll=False):
     curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
