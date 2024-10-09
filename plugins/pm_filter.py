@@ -1736,7 +1736,6 @@ async def auto_filter(client, msg, spoll=False):
     temp.KEYWORD[message.from_user.id] = search
     temp.SHORT[message.from_user.id] = message.chat.id
     pre = 'filep' if settings['file_secure'] else 'file'
-    
     if settings["button"]:
         btn = [
             [
