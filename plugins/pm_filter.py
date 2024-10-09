@@ -1723,8 +1723,9 @@ async def auto_filter(client, msg, spoll=False):
                     return
         else:
             return
+            
     else:
-         message = msg.message.reply_to_message  # msg will be callback query
+        message = msg.message.reply_to_message  # msg will be callback query
             search, files, offset, total_results = spoll
             m=await message.reply_sticker(sticker="CAACAgIAAxkBAAEVugJljpdfkszexOUZu8hPjuPKty8ZmAACdxgAAqPjKEmMVSFmXGLogR4E",
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🅿︎🅻︎🅴︎🅰︎🆂︎🅴︎  🆆︎🅰︎🅸︎🆃︎", url=CHNL_LNK)]]))
