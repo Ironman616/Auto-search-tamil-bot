@@ -104,6 +104,15 @@ class Database:
         
     async def update_settings(self, id, settings):
         await self.grp.update_one({'id': int(id)}, {'$set': {'settings': settings}})
+
+    async def get_settings(chat_id):
+    settings = await fetch_settings_from_db(chat_id)  # Example: Fetch settings from database
+    
+    # Ensure default values for missing keys
+    if "button" not in settings:
+        settings["button"] = True  # or False, based on your requirement
+    
+    return settings
         
     
     async def get_settings(self, id):
